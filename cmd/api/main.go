@@ -1,14 +1,14 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/alonsoF100/chat-api/internal/config"
+	"github.com/alonsoF100/chat-api/internal/logger"
 )
 
 func main() {
 	// TODO Инициализация зависимостей
 
 	cfg := config.Load()
-	fmt.Println(cfg)
+
+	logger.Setup(cfg)
 }
