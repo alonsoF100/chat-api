@@ -1,0 +1,83 @@
+{
+	"info": {
+		"_postman_id": "133fe02d-b464-421d-a71e-55798fb8b8db",
+		"name": "chat-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "49787689",
+		"_collection_link": "https://alonsof100-7948034.postman.co/workspace/racus's-Workspace~7a79e701-d949-4ecf-8949-8a846eda5cd9/collection/49787689-133fe02d-b464-421d-a71e-55798fb8b8db?action=share&source=collection_link&creator=49787689"
+	},
+	"item": [
+		{
+			"name": "create new chat",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"myNewChat\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/chats/"
+			},
+			"response": []
+		},
+		{
+			"name": "my first chat message",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"text\": \"This is my first chat message!\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/chats/1/messages/"
+			},
+			"response": []
+		},
+		{
+			"name": "get messages from first chat no limit",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": "http://localhost:8080/chats/1"
+			},
+			"response": []
+		},
+		{
+			"name": "delete chat",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:8080/chats/1"
+			},
+			"response": []
+		}
+	]
+}
