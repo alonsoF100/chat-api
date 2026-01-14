@@ -5,6 +5,7 @@ import (
 
 	"github.com/alonsoF100/chat-api/internal/config"
 	"github.com/alonsoF100/chat-api/internal/logger"
+	"github.com/alonsoF100/chat-api/internal/repository/postgres"
 	"github.com/alonsoF100/chat-api/internal/service"
 	"github.com/alonsoF100/chat-api/internal/transport/http/handlers"
 	"github.com/alonsoF100/chat-api/internal/transport/http/server"
@@ -15,9 +16,16 @@ func main() {
 
 	logS := logger.Setup(cfg)
 
-	// TODO засетапить подключение к базе
+	pool, err := postgres.NewPool(cfg)
+	if err != nil {
+		slog.Error("Failed to create pool", "error", err)
+	}
+	defer pool.Close()
+	slog.Info("Pool created successfully")
 
-	service := service.New(nil) // TODO передать слой репо
+	dataBase := postgres.New(pool)
+
+	service := service.New(dataBase)
 
 	handlers := handlers.New(service)
 
