@@ -21,7 +21,7 @@ func New(pool *pgxpool.Pool) *Repository {
 }
 
 func NewPool(cfg *config.Config) (*pgxpool.Pool, error) {
-	const op = "repository/postgres/database.go/NewPool"
+	const op = "postgres/database.go/NewPool"
 
 	poolConfig, err := pgxpool.ParseConfig(cfg.Database.ConStr())
 	if err != nil {
