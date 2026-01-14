@@ -2,6 +2,7 @@ package service
 
 import (
 	"log/slog"
+	"strings"
 
 	"github.com/alonsoF100/chat-api/internal/apperrors"
 	"github.com/alonsoF100/chat-api/internal/models"
@@ -9,6 +10,8 @@ import (
 
 func (s Service) CreateMessage(text string, chatID int) (*models.Message, error) {
 	const op = "service/CreateMessage"
+
+	validText := strings.TrimSpace(text)
 
 	chat, err := s.Repository.GetChat(chatID)
 	if chat == nil {
@@ -27,7 +30,7 @@ func (s Service) CreateMessage(text string, chatID int) (*models.Message, error)
 		return nil, err
 	}
 
-	message, err := s.Repository.CreateMessage(chatID, text)
+	message, err := s.Repository.CreateMessage(chatID, validText)
 	if err != nil {
 		slog.Error("Failed to create message",
 			slog.String("op", op),

@@ -1,20 +1,75 @@
 package postgres
 
-import "github.com/alonsoF100/chat-api/internal/models"
+import (
+	"context"
+	"database/sql"
+	"fmt"
+
+	"github.com/alonsoF100/chat-api/internal/models"
+)
 
 func (r Repository) CreateChat(title string) (*models.Chat, error) {
 	const op = "postgres/chat.go/CreateChat"
 
-	return nil, nil
+	const query = `
+	INSERT INTO chats (title) 
+	VALUES ($1) 
+	RETURNING id, title, created_at
+	`
+	var chat models.Chat
+
+	err := r.pool.QueryRow(context.Background(), query, title).Scan(
+		&chat.ID,
+		&chat.Title,
+		&chat.CreatedAt,
+	)
+	if err != nil {
+		return nil, fmt.Errorf("%s: %w", op, err)
+	}
+
+	return &chat, nil
 }
-func (r Repository) DeleteChat(ChatID int) error {
+
+func (r Repository) DeleteChat(chatID int) error {
 	const op = "postgres/chat.go/DeleteChat"
+
+	const query = `
+	DELETE FROM chats 
+	WHERE id = $1
+	`
+	res, err := r.pool.Exec(context.Background(), query, chatID)
+	if err != nil {
+		return fmt.Errorf("%s: %w", op, err)
+	}
+	rowsAffected := res.RowsAffected()
+	if rowsAffected == 0 {
+		return fmt.Errorf("%s: chat with id %d not found", op, chatID)
+	}
 
 	return nil
 }
 
-func (r Repository) GetChat(ChatID int) (*models.Chat, error) {
+func (r Repository) GetChat(chatID int) (*models.Chat, error) {
 	const op = "postgres/chat.go/GetChat"
 
-	return nil, nil
+	const query = `
+	SELECT id, title, created_at 
+	FROM chats 
+	WHERE id = $1
+	`
+
+	var chat models.Chat
+	err := r.pool.QueryRow(context.Background(), query, chatID).Scan(
+		&chat.ID,
+		&chat.Title,
+		&chat.CreatedAt,
+	)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, nil
+		}
+		return nil, fmt.Errorf("%s: %w", op, err)
+	}
+
+	return &chat, nil
 }
