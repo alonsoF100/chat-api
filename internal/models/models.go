@@ -1,3 +1,16 @@
 package models
 
-// TODO Добавить доменные модели chat + message
+import "time"
+
+type Chat struct {
+	ID        int
+	Title     string
+	CreatedAt time.Time
+}
+
+type Message struct {
+	ID        int
+	ChatID    int
+	Text      string
+	CreatedAt time.Time
+}
