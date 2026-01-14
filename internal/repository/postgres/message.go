@@ -3,6 +3,7 @@ package postgres
 import (
 	"context"
 	"fmt"
+	"log/slog"
 
 	"github.com/Masterminds/squirrel"
 	"github.com/alonsoF100/chat-api/internal/models"
@@ -27,6 +28,13 @@ func (r Repository) CreateMessage(chatID int, text string) (*models.Message, err
 		return nil, fmt.Errorf("%s: %w", op, err)
 	}
 
+	slog.Debug("Message created successfully",
+		slog.String("op", op),
+		slog.Int("id", message.ID),
+		slog.Int("chat_id", message.ChatID),
+		slog.String("text", message.Text),
+		slog.Time("created_at", message.CreatedAt),
+	)
 	return &message, nil
 }
 
@@ -69,5 +77,10 @@ func (r Repository) GetMessages(chatID int, limit int) ([]*models.Message, error
 		return nil, fmt.Errorf("%s: %w", op, err)
 	}
 
+	slog.Debug("Messages founded successfully",
+		slog.String("op", op),
+		slog.Int("limit", limit),
+		slog.Int("count", len(messages)),
+	)
 	return messages, nil
 }

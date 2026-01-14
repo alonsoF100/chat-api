@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"log/slog"
 
 	"github.com/alonsoF100/chat-api/internal/models"
 )
@@ -27,6 +28,12 @@ func (r Repository) CreateChat(title string) (*models.Chat, error) {
 		return nil, fmt.Errorf("%s: %w", op, err)
 	}
 
+	slog.Debug("Chat created successfully",
+		slog.String("op", op),
+		slog.Int("id", chat.ID),
+		slog.String("title", chat.Title),
+		slog.Time("created_at", chat.CreatedAt),
+	)
 	return &chat, nil
 }
 
@@ -46,6 +53,10 @@ func (r Repository) DeleteChat(chatID int) error {
 		return fmt.Errorf("%s: chat with id %d not found", op, chatID)
 	}
 
+	slog.Debug("Chat deleted successfully",
+		slog.String("op", op),
+		slog.Int("id", chatID),
+	)
 	return nil
 }
 
@@ -71,5 +82,11 @@ func (r Repository) GetChat(chatID int) (*models.Chat, error) {
 		return nil, fmt.Errorf("%s: %w", op, err)
 	}
 
+	slog.Debug("Chat founded successfully",
+		slog.String("op", op),
+		slog.Int("id", chat.ID),
+		slog.String("title", chat.Title),
+		slog.Time("created_at", chat.CreatedAt),
+	)
 	return &chat, nil
 }
