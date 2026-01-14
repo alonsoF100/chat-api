@@ -16,6 +16,6 @@ type Message struct {
 }
 
 type ChatWithMessages struct {
-	Chat     Chat
+	Chat     *Chat
 	Messages []*Message
 }
