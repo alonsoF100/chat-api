@@ -9,6 +9,7 @@ import (
 	"github.com/alonsoF100/chat-api/internal/service"
 	"github.com/alonsoF100/chat-api/internal/transport/http/handlers"
 	"github.com/alonsoF100/chat-api/internal/transport/http/server"
+	_ "github.com/alonsoF100/chat-api/migrations/postgres" // migrations
 )
 
 func main() {
