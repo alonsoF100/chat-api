@@ -138,7 +138,7 @@ func (h Handler) GetMessages(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	messages, err := h.MessageService.GetMessages(chatID, limit)
+	chatWithMessages, err := h.MessageService.GetMessages(chatID, limit)
 	if err != nil {
 		if errors.Is(err, apperrors.ErrChatNotFound) {
 			WriteJSON(w, http.StatusNotFound, dto.NewErrorResponse(err))
@@ -158,7 +158,7 @@ func (h Handler) GetMessages(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	WriteJSON(w, http.StatusOK, dto.NewMessagesResponse(messages))
+	WriteJSON(w, http.StatusOK, dto.NewMessagesResponse(chatWithMessages))
 	slog.Info("Messages find successfuly",
 		slog.String("op", op),
 		slog.Int("chatID", chatID),

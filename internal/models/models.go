@@ -14,3 +14,8 @@ type Message struct {
 	Text      string
 	CreatedAt time.Time
 }
+
+type ChatWithMessages struct {
+	Chat     Chat
+	Messages []*Message
+}

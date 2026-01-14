@@ -12,7 +12,7 @@ type ChatService interface {
 
 type MessageService interface {
 	CreateMessage(text string, chatID int) (*models.Message, error)
-	GetMessages(chatID int, limit int) ([]*models.Message, error)
+	GetMessages(chatID int, limit int) (*models.ChatWithMessages, error)
 }
 
 type Handler struct {
