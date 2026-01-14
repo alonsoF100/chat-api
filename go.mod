@@ -2,15 +2,17 @@ module github.com/alonsoF100/chat-api
 
 go 1.25.5
 
-require github.com/spf13/viper v1.21.0
+require (
+	github.com/go-chi/chi/v5 v5.2.3
+	github.com/go-playground/validator/v10 v10.30.1
+	github.com/spf13/viper v1.21.0
+)
 
 require (
 	github.com/fsnotify/fsnotify v1.9.0 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.12 // indirect
-	github.com/go-chi/chi/v5 v5.2.3 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
-	github.com/go-playground/validator/v10 v10.30.1 // indirect
 	github.com/go-viper/mapstructure/v2 v2.4.0 // indirect
 	github.com/leodido/go-urn v1.4.0 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.4 // indirect
