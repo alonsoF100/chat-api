@@ -17,10 +17,9 @@ func main() {
 
 	// TODO засетапить подключение к базе
 
-	// TODO проинициализировать сервисный слой
-	service := service.New(nil)
+	service := service.New(nil) // TODO передать слой репо
 
-	handlers := handlers.New(service) // TODO передать сервисный слой в http не забыть :)
+	handlers := handlers.New(service)
 
 	if err := server.New(cfg, handlers, logS).Start(); err != nil {
 		slog.Error("Failed to start server",
