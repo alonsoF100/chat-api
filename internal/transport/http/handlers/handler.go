@@ -5,26 +5,21 @@ import (
 	"github.com/go-playground/validator/v10"
 )
 
-type ChatService interface {
+type Service interface {
 	CreateChat(title string) (*models.Chat, error)
 	DeleteChat(chatID int) error
-}
-
-type MessageService interface {
 	CreateMessage(text string, chatID int) (*models.Message, error)
 	GetMessages(chatID int, limit int) (*models.ChatWithMessages, error)
 }
 
 type Handler struct {
-	ChatService    ChatService
-	MessageService MessageService
-	Validator      *validator.Validate
+	Service   Service
+	Validator *validator.Validate
 }
 
-func New(chatService ChatService, messageService MessageService) *Handler {
+func New(service Service) *Handler {
 	return &Handler{
-		ChatService:    chatService,
-		MessageService: messageService,
-		Validator:      validator.New(),
+		Service:   service,
+		Validator: validator.New(),
 	}
 }

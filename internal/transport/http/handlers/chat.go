@@ -52,7 +52,7 @@ func (h Handler) CreateChat(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	chat, err := h.ChatService.CreateChat(req.Title)
+	chat, err := h.Service.CreateChat(req.Title)
 	if err != nil {
 		WriteJSON(w, http.StatusInternalServerError, dto.NewErrorResponse(err))
 		slog.Debug("Failed to create chat",
@@ -98,7 +98,7 @@ func (h Handler) DeleteChat(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = h.ChatService.DeleteChat(chatID)
+	err = h.Service.DeleteChat(chatID)
 	if err != nil {
 		if errors.Is(err, apperrors.ErrChatNotFound) {
 			WriteJSON(w, http.StatusNotFound, dto.NewErrorResponse(err))

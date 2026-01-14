@@ -18,8 +18,7 @@ func main() {
 
 	// TODO проинициализировать сервисный слой
 
-	
-	handlers := handlers.New(nil, nil) // TODO передать сервисный слой в http не забыть :)
+	handlers := handlers.New(nil) // TODO передать сервисный слой в http не забыть :)
 
 	if err := server.New(cfg, handlers, logS).Start(); err != nil {
 		slog.Error("Failed to start server",
